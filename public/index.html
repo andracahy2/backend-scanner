@@ -1,0 +1,92 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Port Forwarding Testing Tool</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Real Port Forwarding Testing Tool</h1>
+            <p>Test actual port connectivity and accessibility across networks</p>
+        </div>
+
+        <div id="error-message" class="message error" style="display: none;"></div>
+        <div id="success-message" class="message success" style="display: none;"></div>
+
+        <div class="testing-panel">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="host">Target Host/IP Address</label>
+                    <input type="text" id="host" placeholder="e.g., google.com or 192.168.1.1">
+                </div>
+                <div class="form-group">
+                    <label for="port-range">Port or Range</label>
+                    <input type="text" id="port-range" placeholder="e.g., 80 or 80-90">
+                </div>
+                <div class="form-group" style="flex: 0 0 150px;">
+                    <label for="timeout">Timeout (ms)</label>
+                    <input type="number" id="timeout" value="5000" min="1000" max="30000">
+                </div>
+            </div>
+
+            <div class="common-ports">
+                <h3>Quick Test Common Ports</h3>
+                <div class="port-grid" id="common-ports-grid"></div>
+            </div>
+
+            <div class="button-row">
+                <button id="start-test" class="primary-button">Start Test</button>
+                <button id="test-common" class="secondary-button">Test All Common Ports</button>
+                <button id="stop-test" class="primary-button" style="display: none;">
+                    <span class="loading-spinner"></span>
+                    Stop Test
+                </button>
+            </div>
+        </div>
+
+        <div id="progress-container" style="display: none;">
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill"></div>
+            </div>
+            <div id="progress-text" style="text-align: center; font-size: 14px; color: #666;"></div>
+        </div>
+
+        <div class="results-section">
+            <div class="results-header">
+                <h2>Test Results (<span id="result-count">0</span>)</h2>
+                <div class="results-actions">
+                    <button id="export-results" class="secondary-button" disabled>Export JSON</button>
+                    <button id="clear-results" class="secondary-button" disabled>Clear Results</button>
+                </div>
+            </div>
+
+            <div id="empty-results" class="empty-state">
+                <div class="empty-state-icon">🔍</div>
+                <p>No test results yet. Start a port scan to see results here.</p>
+            </div>
+
+            <div id="results-table-container" style="display: none;">
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th data-sort="host">Host <span class="sort-indicator"></span></th>
+                            <th data-sort="port">Port <span class="sort-indicator"></span></th>
+                            <th data-sort="protocol">Protocol <span class="sort-indicator"></span></th>
+                            <th data-sort="status">Status <span class="sort-indicator"></span></th>
+                            <th data-sort="responseTime">Response Time <span class="sort-indicator"></span></th>
+                            <th data-sort="timestamp">Timestamp <span class="sort-indicator"></span></th>
+                        </tr>
+                    </thead>
+                    <tbody id="results-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
